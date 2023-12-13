@@ -1,0 +1,19 @@
+{
+  "name": "backend_ta_qt",
+  "version": "1.0.0",
+  "description": "test assignment for QT",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev" : "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

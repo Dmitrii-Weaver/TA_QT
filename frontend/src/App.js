@@ -2,9 +2,13 @@ import { Container, Grid } from '@mui/material'
 import './App.css';
 import Form from "./components/form"
 import Datascreen from "./components/datascreen"
+import { useState } from 'react';
 
 
 function App() {
+
+  const [displayData, setDisplayData] = useState("")
+
   return (
     <Container>
       <Grid container>
