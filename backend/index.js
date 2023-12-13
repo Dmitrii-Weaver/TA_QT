@@ -14,7 +14,7 @@ let db = new sqlite3.Database("./db/QT_certificate.db", (err) => {
 })
 
 
-const generate_certificate = () => {
+const generate_key = () => {
     var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
     var charLength = chars.length;
     var result = '';
@@ -79,23 +79,37 @@ app.get("/certs/getone/", (req, res) => {
 app.post("/certs/create/", (req, res) => {
     let user = req.query.user
     let cname = req.query.cname
-    let certificate = generate_certificate()
     let id = generate_id()
     let sql = `SELECT * FROM certificates ORDER BY id`;
-
     db.all(sql, [], (err, rows) => {
         if (err) {
             throw err;
         }
-        const checkdoubles = () => {
+        const checkdoubleIds = () => {
             rows.forEach((row) => {
                 if (row.id == id) {
                     id = generate_id()
-                    checkdoubles()
+                    checkdoubleIds()
                 }
             });
         }
-        checkdoubles()
+        checkdoubleIds()
+    });
+
+    let key = generate_key()
+    db.all(sql, [], (err, rows) => {
+        if (err) {
+            throw err;
+        }
+        const checkdoubleKeys = () => {
+            rows.forEach((row) => {
+                if (row.key == key) {
+                    key = generate_id()
+                    checkdoubleKeys()
+                }
+            });
+        }
+        checkdoubleKeys()
     });
     sql = `SELECT * FROM certificates WHERE  owner='` + user + `' AND name='` + cname + `' ORDER BY id`;
     db.all(sql, [], (err, rows) => {
@@ -103,7 +117,7 @@ app.post("/certs/create/", (req, res) => {
             throw err;
         }
         if (rows.length == 0) {
-            db.run(`INSERT INTO certificates VALUES(?, ?, ?, ?)`, [id, cname, user, certificate], function (err) {
+            db.run(`INSERT INTO certificates VALUES(?, ?, ?, ?)`, [id, cname, user, key], function (err) {
                 if (err) {
                     return console.log(err.message);
                 }
