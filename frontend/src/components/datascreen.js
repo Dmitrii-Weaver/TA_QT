@@ -1,12 +1,12 @@
 import React from 'react'
 import "./datascreen.css"
-import { Grid } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 
 const datascreen = (props) => {
   return (
     <Grid container>
       <Grid item>
-        data : {props.displayData}
+          {JSON.stringify(props.displayData, null, 2)}
       </Grid>
     </Grid>
   )

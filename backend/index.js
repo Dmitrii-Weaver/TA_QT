@@ -1,7 +1,10 @@
 const express = require("express");
 const sqlite3 = require('sqlite3');
 const app = express()
-
+const cors = require('cors');
+app.use(cors({
+    origin: '*'
+}));
 
 // Connecting Database 
 let db = new sqlite3.Database("./db/QT_certificate.db", (err) => {
@@ -61,8 +64,8 @@ app.get("/certs/getall", (req, res) => {
 //get specific certificate 
 app.get("/certs/getone/", (req, res) => {
     let user = req.query.user
-    let cname = req.query.cname
-    let sql = `SELECT * FROM certificates WHERE owner='` + user + `' AND name='` + cname + `' ORDER BY id`;
+    let cid = req.query.cid
+    let sql = `SELECT * FROM certificates WHERE owner='` + user + `' AND id='` + cid + `' ORDER BY id`;
     db.all(sql, [], (err, rows) => {
         if (err) {
             res.send("sql error")
@@ -121,7 +124,7 @@ app.post("/certs/create/", (req, res) => {
                 if (err) {
                     return console.log(err.message);
                 }
-                res.send("sucess")
+                res.send("Certificate created. id: " + id + " Name: " + cname + " Owner: " + user + " Key: " + key)
             });
         }
         else if (rows.length > 0) {
@@ -133,15 +136,15 @@ app.post("/certs/create/", (req, res) => {
 //delete certificate 
 app.post("/certs/delete/", (req, res) => {
     let user = req.query.user
-    let cname = req.query.cname
+    let cid = req.query.cid
 
-    let sql = `SELECT * FROM certificates WHERE  owner='` + user + `' AND name='` + cname + `' ORDER BY id`;
+    let sql = `SELECT * FROM certificates WHERE  owner='` + user + `' AND id='` + cid + `' ORDER BY id`;
     db.all(sql, [], (err, rows) => {
         if (err) {
             throw err;
         }
         if (rows.length != 0) {
-            db.run(`DELETE FROM certificates WHERE name='` + cname + `'`, function (err) {
+            db.run(`DELETE FROM certificates WHERE id='` + cid + `'`, function (err) {
                 if (err) {
                     return console.log(err.message);
                 }

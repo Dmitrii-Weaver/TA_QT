@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./form.css"
 import { Button, FormControl, FormLabel, Grid, InputLabel, MenuItem, Select, TextField, SelectChangeEvent } from '@mui/material'
 
@@ -6,9 +6,10 @@ import { Button, FormControl, FormLabel, Grid, InputLabel, MenuItem, Select, Tex
 
 const Form = (props) => {
 
-  const [action, setAction] = useState("GetAll")
+  const [action, setAction] = useState("getall")
   const [uid, setUid] = useState("")
   const [cid, setcid] = useState("")
+  const [cname, setCname] = useState("")
 
   const handleChangeAction = (event) => {
     setAction(event.target.value)
@@ -22,6 +23,39 @@ const Form = (props) => {
 
   const handleChangeCid = (event) => {
     setcid(event.target.value)
+  }
+
+  const handleChangeCname = (event) => {
+    setCname(event.target.value)
+  }
+
+  const handleRequest = () => {
+    let url = "http://localhost:5000/certs/" + action + "?user=" + uid
+    let method = "GET"
+    if (action == "getone" ) {
+      url = url + "&" + cid
+    }
+    if (action == "delete") {
+      url = url + "&" + cid
+      method = "POST"
+    }
+    if (action == "create") {
+      url = url + cname
+      method = "POST"
+    }
+    console.log(url)
+    fetch(url,  {method: method, headers: {"Content-Type": "application/json"}})
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("the data received is :")
+        console.log(data);
+        props.setDisplayData(data)
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+
   }
 
   return (
@@ -38,33 +72,33 @@ const Form = (props) => {
           label="Action"
           onChange={handleChangeAction}
         >
-          <MenuItem value={"GetAll"}>Get All Certificates</MenuItem>
-          <MenuItem value={"GetOne"}>Get Certificate by ID</MenuItem>
-          <MenuItem value={"MakeNew"}>Generate new Certificate</MenuItem>
-          <MenuItem value={"Delete"}>Delete a Certificate</MenuItem>
+          <MenuItem value={"getall"}>Get All Certificates</MenuItem>
+          <MenuItem value={"getone"}>Get Certificate by ID</MenuItem>
+          <MenuItem value={"create"}>Generate new Certificate</MenuItem>
+          <MenuItem value={"delete"}>Delete a Certificate</MenuItem>
         </Select>
       </Grid>
       <Grid item>
         <FormControl>
           <FormLabel>UID</FormLabel>
           <TextField size='small' onChange={handleChangeUid}></TextField>
-          <Grid item className={action == "GetAll" ? "visible" : "invisible"}>
-            <Button>Get All Vertificates</Button>
+          <Grid item className={action == "getall" ? "visible" : "invisible"}>
+            <Button onClick={() => handleRequest()}>Get All Vertificates</Button>
           </Grid>
-          <Grid item className={action == "GetOne" ? "visible" : "invisible"}>
+          <Grid item className={action == "getone" ? "visible" : "invisible"}>
             <FormLabel>Certificate ID</FormLabel>
             <TextField size='small' onChange={handleChangeCid}></TextField>
-            <Button>Get Certificate</Button>
+            <Button onClick={() => handleRequest()}>Get Certificate</Button>
           </Grid>
-          <Grid item className={action == "MakeNew" ? "visible" : "invisible"}>
-            <FormLabel>Certificade Code</FormLabel>
-            <TextField size='small'></TextField>
-            <Button>Create Certificate</Button>
+          <Grid item className={action == "create" ? "visible" : "invisible"}>
+            <FormLabel>Certificade Name</FormLabel>
+            <TextField size='small' onChange={handleChangeCname}></TextField>
+            <Button onClick={() => handleRequest()}>Create Certificate</Button>
           </Grid>
-          <Grid item className={action == "Delete" ? "visible" : "invisible"}>
+          <Grid item className={action == "delete" ? "visible" : "invisible"}>
             <FormLabel>Certificate ID</FormLabel>
             <TextField size='small' onChange={handleChangeCid}></TextField>
-            <Button>Delete Certificate</Button>
+            <Button onClick={() => handleRequest()}>Delete Certificate</Button>
           </Grid>
         </FormControl>
       </Grid>
