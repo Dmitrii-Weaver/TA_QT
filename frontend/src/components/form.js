@@ -4,17 +4,32 @@ import { Button, FormControl, FormLabel, Grid, InputLabel, MenuItem, Select, Tex
 
 
 
-const Form = () => {
+const Form = (props) => {
 
   const [action, setAction] = useState("GetAll")
+  const [uid, setUid] = useState("")
+  const [cid, setcid] = useState("")
 
   const handleChangeAction = (event) => {
     setAction(event.target.value)
+    props.setDisplayData(action)
     console.log(action)
   }
+
+  const handleChangeUid = (event) => {
+    setUid(event.target.value)
+  }
+
+  const handleChangeCid = (event) => {
+    setcid(event.target.value)
+  }
+
   return (
     <Grid container>
       <Grid item>
+        current action : {action} <br />
+        current uid : {uid} <br />
+        current cid : {cid}<br />
         <FormLabel id="demo-simple-select-label">Action</FormLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -32,13 +47,13 @@ const Form = () => {
       <Grid item>
         <FormControl>
           <FormLabel>UID</FormLabel>
-          <TextField size='small'></TextField>
+          <TextField size='small' onChange={handleChangeUid}></TextField>
           <Grid item className={action == "GetAll" ? "visible" : "invisible"}>
             <Button>Get All Vertificates</Button>
           </Grid>
           <Grid item className={action == "GetOne" ? "visible" : "invisible"}>
             <FormLabel>Certificate ID</FormLabel>
-            <TextField size='small'></TextField>
+            <TextField size='small' onChange={handleChangeCid}></TextField>
             <Button>Get Certificate</Button>
           </Grid>
           <Grid item className={action == "MakeNew" ? "visible" : "invisible"}>
@@ -48,7 +63,7 @@ const Form = () => {
           </Grid>
           <Grid item className={action == "Delete" ? "visible" : "invisible"}>
             <FormLabel>Certificate ID</FormLabel>
-            <TextField size='small'></TextField>
+            <TextField size='small' onChange={handleChangeCid}></TextField>
             <Button>Delete Certificate</Button>
           </Grid>
         </FormControl>
