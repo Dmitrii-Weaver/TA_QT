@@ -13,8 +13,6 @@ const Form = (props) => {
 
   const handleChangeAction = (event) => {
     setAction(event.target.value)
-    props.setDisplayData(action)
-    console.log(action)
   }
 
   const handleChangeUid = (event) => {
@@ -33,22 +31,22 @@ const Form = (props) => {
     let url = "http://localhost:5000/certs/" + action + "?user=" + uid
     let method = "GET"
     if (action == "getone" ) {
-      url = url + "&" + cid
+      url = url + "&cid=" + cid
     }
     if (action == "delete") {
-      url = url + "&" + cid
+      url = url + "&cid=" + cid
       method = "POST"
     }
     if (action == "create") {
-      url = url + cname
+      url = url + "&cname=" + cname
       method = "POST"
     }
     console.log(url)
     fetch(url,  {method: method, headers: {"Content-Type": "application/json"}})
       .then((res) => res.json())
       .then((data) => {
-        console.log("the data received is :")
-        console.log(data);
+        console.log(typeof(data))
+        console.log(data)
         props.setDisplayData(data)
       })
       .catch((err) => {

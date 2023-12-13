@@ -7,11 +7,11 @@ import { useState } from 'react';
 
 function App() {
 
-  const [displayData, setDisplayData] = useState("default value")
+  const [displayData, setDisplayData] = useState("")
 
   return (
     <Container>
-      <Grid container>
+      <Grid container className='main'>
         <Grid item xs={12} sm={12} md={4} lg={2}>
           <Form displayData={displayData} setDisplayData={setDisplayData} />
         </Grid>
