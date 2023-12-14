@@ -20,7 +20,6 @@ describe('Get All Certificates Endpoint', () => {
   });
 });
 
-
 describe('Get All Certificates Endpoint, but the endpoint is wrong', () => {
   http.get('http://localhost:5000/certs/lists', res => {
     let expCode = 404
@@ -35,7 +34,6 @@ describe('Get All Certificates Endpoint, but the endpoint is wrong', () => {
     console.log('Error: ', err.message);
   });
 });
-
 
 //test /getall
 describe('Get All Certificates owned by user under ID UID1', () => {
