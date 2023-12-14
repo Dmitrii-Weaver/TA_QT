@@ -1,6 +1,6 @@
 # TA_QT
 
- --- test assignment for QT company ---
+ --- test assignment ---
 
 # Starting the app :
 
