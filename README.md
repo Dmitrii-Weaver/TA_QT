@@ -2,7 +2,7 @@
 
  --- test assignment for QT company ---
 
-# starting the app :
+# Starting the app :
 
 1) open terminal in the TA_QT folder
 2) navigate to "backend"
@@ -16,18 +16,24 @@
 10) after a few seconds your browser will open the web app, if not - it will be hosted on localhost:3000
 
 
-# brief description of core files
+# Brief description of core files
 
 /backend - the backend folder
+
     /db - database folder, contains the QT_certificate.db file
     index.js - main file, contains all the api code (the task seemed rather basic so splitting it into several files seemed unnecessary)
     test.js - unit tests
 /frontend
     /src
+
         /components - components folder, contains parts of the react app that are used in app.js
+
             datascreen.js - handles the data output. Received data, errors, success responses.
+
             form.js - assembles and sends request with parameters provided by user
+
         index.js - core file, mostly left unchanged from init
+        
         app.js - main file, connects the components
         
 readme.md - a readme file, you read it to get information about the app
@@ -36,7 +42,7 @@ readme.md - a readme file, you read it to get information about the app
 
 By default the api is running at http://localhost:5000 so all the requests are sent there
 
-GET "/" - default route used for testing purposes - returns "<h1>test passed</h1>"
+GET "/" - default route used for testing purposes - returns "test passed" as an h1 tag
 
 GET "/certs/list" -get full DB of all certificates made by all users, used for testing purposes. - returns an array of objects
 
