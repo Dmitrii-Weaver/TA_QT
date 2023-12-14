@@ -31,3 +31,19 @@
         app.js - main file, connects the components
         
 readme.md - a readme file, you read it to get information about the app
+
+# API requests and responses
+
+By default the api is running at http://localhost:5000 so all the requests are sent there
+
+GET "/" - default route used for testing purposes - returns "<h1>test passed</h1>"
+
+GET "/certs/list" -get full DB of all certificates made by all users, used for testing purposes. - returns an array of objects
+
+GET /certs/getall/ + ?user={user id} - get all certificates registered by a user under specified user id (UID), requires a user id to be passed - returns an array of objects on success, returns and error message on failure
+
+GET /certs/getone/ + ?user={user id}&cid={certificate id} - get a certificate under specified user id and certificate id, requires a user and certificate ids passed as parameters - returns an array with an object in it, returns an error message on failure
+
+POST /certs/create/ + ?user={user id}&cname={certificate name} - create a new certificate under specified name, requires user id and certificate name passed as parameters, automatically checks for no duplicate id's or names under the same user - returns a success/error message depending on the outcome 
+
+POST /certs/delete/ + ?user={user id}&cid={certificate id} - deletes a certificate under specified id IF the user id matches one of the certificate owner - returns a success/error message depending on the outcome 
