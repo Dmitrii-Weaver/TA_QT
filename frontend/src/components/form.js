@@ -63,11 +63,11 @@ const Form = (props) => {
   }
 
   return (
-    <Grid container>
+    <Grid container className='form_holder'>
       <Grid item>
-        <FormLabel id="demo-simple-select-label">Action</FormLabel>
+        <FormLabel>Action</FormLabel><br/>
         <Select
-          labelId="demo-simple-select-label"
+          className='selector inputField'
           id="demo-simple-select"
           value={action}
           label="Action"
@@ -76,29 +76,29 @@ const Form = (props) => {
           <MenuItem value={"getall"}>Get All Certificates</MenuItem>
           <MenuItem value={"getone"}>Get Certificate by ID</MenuItem>
           <MenuItem value={"create"}>Generate Certificate</MenuItem>
-          <MenuItem value={"delete"}>Delete Certificate</MenuItem>
+          <MenuItem value={"delete"}>Delete Certificates</MenuItem>
         </Select>
       </Grid>
       <Grid item>
         <FormControl>
           <FormLabel>User ID</FormLabel>
-          <TextField size='small' onChange={handleChangeUid}></TextField>
+          <TextField size='small' className='inputField' onChange={handleChangeUid}></TextField>
           <Grid item className={action == "getall" ? "visible" : "invisible"}>
             <Button onClick={() => handleRequest()}>Get All Certificates</Button>
           </Grid>
           <Grid item className={action == "getone" ? "visible" : "invisible"}>
             <FormLabel>Certificate ID</FormLabel>
-            <TextField size='small' onChange={handleChangeCid}></TextField>
+            <TextField size='small' className='inputField' onChange={handleChangeCid}></TextField>
             <Button onClick={() => handleRequest()}>Get Certificate</Button>
           </Grid>
           <Grid item className={action == "create" ? "visible" : "invisible"}>
             <FormLabel>Certificade Name</FormLabel>
-            <TextField size='small' onChange={handleChangeCname}></TextField>
+            <TextField size='small' className='inputField' onChange={handleChangeCname}></TextField>
             <Button onClick={() => handleRequest()}>Create Certificate</Button>
           </Grid>
           <Grid item className={action == "delete" ? "visible" : "invisible"}>
             <FormLabel>Certificate ID</FormLabel>
-            <TextField size='small' onChange={handleChangeCid}></TextField>
+            <TextField size='small' className='inputField' onChange={handleChangeCid}></TextField>
             <Button onClick={() => handleRequest()}>Delete Certificate</Button>
           </Grid>
         </FormControl>

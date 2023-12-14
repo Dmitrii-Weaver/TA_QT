@@ -1,6 +1,7 @@
-.data_container{
+.data_container {
     padding: 5px;
     border: 3px solid lightblue;
-    margin-left: 10px;
-    
+    margin-left: 50px;
+    min-height: 100vh;
+
 }
