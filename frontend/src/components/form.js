@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import "./form.css"
-import { Button, FormControl, FormLabel, Grid,  MenuItem, Select, TextField } from '@mui/material'
+import { Button, FormControl, FormLabel, Grid, MenuItem, Select, TextField } from '@mui/material'
 
 const Form = (props) => {
-  
+
   const [action, setAction] = useState("getall")
   const [uid, setUid] = useState("")
   const [cid, setcid] = useState("")
@@ -65,7 +65,7 @@ const Form = (props) => {
   return (
     <Grid container className='form_holder'>
       <Grid item>
-        <FormLabel>Action</FormLabel><br/>
+        <FormLabel>Action</FormLabel><br />
         <Select
           className='selector inputField'
           id="demo-simple-select"
@@ -84,25 +84,30 @@ const Form = (props) => {
           <FormLabel>User ID</FormLabel>
           <TextField size='small' className='inputField' onChange={handleChangeUid}></TextField>
           <Grid item className={action == "getall" ? "visible" : "invisible"}>
-            <Button onClick={() => handleRequest()}>Get All Certificates</Button>
+            <br /><br />
+            <Button variant="outlined"onClick={() => handleRequest()}>Get All Certificates</Button>
           </Grid>
           <Grid item className={action == "getone" ? "visible" : "invisible"}>
             <FormLabel>Certificate ID</FormLabel>
             <TextField size='small' className='inputField' onChange={handleChangeCid}></TextField>
-            <Button onClick={() => handleRequest()}>Get Certificate</Button>
+            <br /><br />
+            <Button variant="outlined"onClick={() => handleRequest()}>Get Certificate</Button>
           </Grid>
           <Grid item className={action == "create" ? "visible" : "invisible"}>
             <FormLabel>Certificade Name</FormLabel>
             <TextField size='small' className='inputField' onChange={handleChangeCname}></TextField>
-            <Button onClick={() => handleRequest()}>Create Certificate</Button>
+            <br /><br />
+            <Button variant="outlined"onClick={() => handleRequest()}>Create Certificate</Button>
           </Grid>
           <Grid item className={action == "delete" ? "visible" : "invisible"}>
             <FormLabel>Certificate ID</FormLabel>
             <TextField size='small' className='inputField' onChange={handleChangeCid}></TextField>
-            <Button onClick={() => handleRequest()}>Delete Certificate</Button>
+            <br /><br />
+            <Button variant="outlined"onClick={() => handleRequest()}>Delete Certificate</Button>
           </Grid>
         </FormControl>
-        <Button onClick={() => fetchAll()}>Show full DB</Button>
+        <br /><br />
+        <Button variant="outlined" onClick={() => fetchAll()}>Show full DB</Button>
       </Grid>
     </Grid>
   )
