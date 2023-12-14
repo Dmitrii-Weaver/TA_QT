@@ -30,7 +30,7 @@ const Form = (props) => {
   const handleRequest = () => {
     let url = "http://localhost:5000/certs/" + action + "?user=" + uid
     let method = "GET"
-    if (action == "getone" ) {
+    if (action == "getone") {
       url = url + "&cid=" + cid
     }
     if (action == "delete") {
@@ -42,26 +42,37 @@ const Form = (props) => {
       method = "POST"
     }
     console.log(url)
-    fetch(url,  {method: method, headers: {"Content-Type": "application/json"}})
+    fetch(url, { method: method, headers: { "Content-Type": "application/json" } })
       .then((res) => res.json())
       .then((data) => {
-        console.log(typeof(data))
+        console.log(typeof (data))
         console.log(data)
         props.setDisplayData(data)
       })
       .catch((err) => {
         console.log(err.message);
       });
+  }
 
-
+  const fetchAll = () => {
+    let url = "http://localhost:5000/certs/list/"
+    let method = "GET"
+    console.log(url)
+    fetch(url, { method: method, headers: { "Content-Type": "application/json" } })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(typeof (data))
+        console.log(data)
+        props.setDisplayData(data)
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   }
 
   return (
     <Grid container>
       <Grid item>
-        current action : {action} <br />
-        current uid : {uid} <br />
-        current cid : {cid}<br />
         <FormLabel id="demo-simple-select-label">Action</FormLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -72,16 +83,16 @@ const Form = (props) => {
         >
           <MenuItem value={"getall"}>Get All Certificates</MenuItem>
           <MenuItem value={"getone"}>Get Certificate by ID</MenuItem>
-          <MenuItem value={"create"}>Generate new Certificate</MenuItem>
-          <MenuItem value={"delete"}>Delete a Certificate</MenuItem>
+          <MenuItem value={"create"}>Generate Certificate</MenuItem>
+          <MenuItem value={"delete"}>Delete Certificate</MenuItem>
         </Select>
       </Grid>
       <Grid item>
         <FormControl>
-          <FormLabel>UID</FormLabel>
+          <FormLabel>User ID</FormLabel>
           <TextField size='small' onChange={handleChangeUid}></TextField>
           <Grid item className={action == "getall" ? "visible" : "invisible"}>
-            <Button onClick={() => handleRequest()}>Get All Vertificates</Button>
+            <Button onClick={() => handleRequest()}>Get All Certificates</Button>
           </Grid>
           <Grid item className={action == "getone" ? "visible" : "invisible"}>
             <FormLabel>Certificate ID</FormLabel>
@@ -99,6 +110,7 @@ const Form = (props) => {
             <Button onClick={() => handleRequest()}>Delete Certificate</Button>
           </Grid>
         </FormControl>
+        <Button onClick={() => fetchAll()}>Show full DB</Button>
       </Grid>
     </Grid>
   )

@@ -44,6 +44,23 @@ app.get("/", (req, res) => {
 
 
 //certificate calls
+
+//get all certificates
+app.get("/certs/list", (req, res) => {
+    let sql = `SELECT * FROM certificates ORDER BY id`;
+    db.all(sql, [], (err, rows) => {
+        if (err) {
+            res.send({"error" : "sql error"})
+            throw err;
+        }
+        rows.forEach((row) => {
+            console.log(row);
+        });
+        res.send(rows)
+    });
+});
+
+
 //get all certificates created by a specific user
 app.get("/certs/getall", (req, res) => {
     let user = req.query.user
@@ -51,7 +68,7 @@ app.get("/certs/getall", (req, res) => {
     console.log(user)
     db.all(sql, [], (err, rows) => {
         if (err) {
-            res.send("sql error")
+            res.send({"error" : "sql error"})
             throw err;
         }
         rows.forEach((row) => {
@@ -68,7 +85,7 @@ app.get("/certs/getone/", (req, res) => {
     let sql = `SELECT * FROM certificates WHERE owner='` + user + `' AND id='` + cid + `' ORDER BY id`;
     db.all(sql, [], (err, rows) => {
         if (err) {
-            res.send("sql error")
+            res.send({"error" : "sql error"})
             throw err;
         }
         rows.forEach((row) => {
@@ -124,11 +141,11 @@ app.post("/certs/create/", (req, res) => {
                 if (err) {
                     return console.log(err.message);
                 }
-                res.send("Certificate created. id: " + id + " Name: " + cname + " Owner: " + user + " Key: " + key)
+                res.send({"success" : "certificate created", "id" : id})
             });
         }
         else if (rows.length > 0) {
-            res.send("this certificate already exists");
+            res.send({"error": "this certificate already exists"});
         }
     });
 });
@@ -148,11 +165,11 @@ app.post("/certs/delete/", (req, res) => {
                 if (err) {
                     return console.log(err.message);
                 }
-                res.send("sucess")
+                res.send({"success": "certificare deleted"})
             });
         }
         else if (rows.length == 0) {
-            res.send("certificate not found");
+            res.send({"error" : "certificate not found"});
         }
     });
 });

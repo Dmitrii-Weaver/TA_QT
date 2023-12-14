@@ -15,7 +15,7 @@ function App() {
         <Grid item xs={12} sm={12} md={4} lg={2}>
           <Form displayData={displayData} setDisplayData={setDisplayData} />
         </Grid>
-        <Grid item xs >
+        <Grid item xs className='data_field' >
           <Datascreen displayData={displayData} setDisplayData={setDisplayData}/>
         </Grid>
       </Grid>
