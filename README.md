@@ -49,3 +49,14 @@ GET /certs/getone/ + ?user={user id}&cid={certificate id} - get a certificate un
 POST /certs/create/ + ?user={user id}&cname={certificate name} - create a new certificate under specified name, requires user id and certificate name passed as parameters, automatically checks for no duplicate id's or names under the same user - returns a success/error message depending on the outcome 
 
 POST /certs/delete/ + ?user={user id}&cid={certificate id} - deletes a certificate under specified id IF the user id matches one of the certificate owner - returns a success/error message depending on the outcome 
+
+# Testing
+
+to run tests
+
+1) launch the server as in "Starting the app"
+2) open another terminal
+3) navigate to "backend" folder
+4) run "npm run test"
+
+the script will briefly run basic endpoint tests and display if anything goes wrong

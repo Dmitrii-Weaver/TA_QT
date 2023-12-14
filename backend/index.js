@@ -51,7 +51,7 @@ app.get("/certs/list", (req, res) => {
     db.all(sql, [], (err, rows) => {
         if (err) {
             res.statusCode = 400
-            res.send({"error" : "sql error"})
+            res.send({ "error": "sql error" })
             throw err;
         }
         rows.forEach((row) => {
@@ -71,13 +71,18 @@ app.get("/certs/getall", (req, res) => {
     db.all(sql, [], (err, rows) => {
         if (err) {
             res.statusCode = 400
-            res.send({"error" : "sql error"})
+            res.send({ "error": "sql error" })
             throw err;
         }
         rows.forEach((row) => {
             console.log(row);
         });
-        res.statusCode = 200
+        if (rows.length == 0) {
+            res.statusCode = 404
+        }
+        else {
+            res.statusCode = 200
+        }
         res.send(rows)
     });
 });
@@ -90,13 +95,18 @@ app.get("/certs/getone/", (req, res) => {
     db.all(sql, [], (err, rows) => {
         if (err) {
             res.statusCode = 400
-            res.send({"error" : "sql error"})
+            res.send({ "error": "sql error" })
             throw err;
         }
         rows.forEach((row) => {
             console.log(row);
         });
-        res.statusCode = 200
+        if (rows.length == 0) {
+            res.statusCode = 404
+        }
+        else {
+            res.statusCode = 200
+        }
         res.send(rows)
     });
 });
@@ -149,12 +159,12 @@ app.post("/certs/create/", (req, res) => {
                     return console.log(err.message);
                 }
                 res.statusCode = 201
-                res.send({"success" : "certificate created", "id" : id})
+                res.send({ "success": "certificate created", "id": id })
             });
         }
         else if (rows.length > 0) {
             res.statusCode = 406
-            res.send({"error": "this certificate already exists"});
+            res.send({ "error": "this certificate already exists" });
         }
     });
 });
@@ -175,12 +185,12 @@ app.post("/certs/delete/", (req, res) => {
                     return console.log(err.message);
                 }
                 res.statusCode = 200
-                res.send({"success": "certificare deleted"})
+                res.send({ "success": "certificare deleted" })
             });
         }
         else if (rows.length == 0) {
             res.statusCode = 404
-            res.send({"error" : "certificate not found"});
+            res.send({ "error": "certificate not found" });
         }
     });
 });
