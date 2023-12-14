@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import "./form.css"
-import { Button, FormControl, FormLabel, Grid, InputLabel, MenuItem, Select, TextField, SelectChangeEvent } from '@mui/material'
-
-
+import { Button, FormControl, FormLabel, Grid,  MenuItem, Select, TextField } from '@mui/material'
 
 const Form = (props) => {
-
+  
   const [action, setAction] = useState("getall")
   const [uid, setUid] = useState("")
   const [cid, setcid] = useState("")
@@ -41,12 +39,9 @@ const Form = (props) => {
       url = url + "&cname=" + cname
       method = "POST"
     }
-    console.log(url)
     fetch(url, { method: method, headers: { "Content-Type": "application/json" } })
       .then((res) => res.json())
       .then((data) => {
-        console.log(typeof (data))
-        console.log(data)
         props.setDisplayData(data)
       })
       .catch((err) => {
@@ -57,12 +52,9 @@ const Form = (props) => {
   const fetchAll = () => {
     let url = "http://localhost:5000/certs/list/"
     let method = "GET"
-    console.log(url)
     fetch(url, { method: method, headers: { "Content-Type": "application/json" } })
       .then((res) => res.json())
       .then((data) => {
-        console.log(typeof (data))
-        console.log(data)
         props.setDisplayData(data)
       })
       .catch((err) => {

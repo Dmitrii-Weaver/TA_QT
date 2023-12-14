@@ -17,6 +17,7 @@ let db = new sqlite3.Database("./db/QT_certificate.db", (err) => {
 })
 
 
+//generator functions
 const generate_key = () => {
     var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
     var charLength = chars.length;
@@ -41,7 +42,6 @@ const generate_id = () => {
 app.get("/", (req, res) => {
     res.send("<h1>test passed</h1>")
 });
-
 
 //certificate calls
 
@@ -131,6 +131,7 @@ app.post("/certs/create/", (req, res) => {
         }
         checkdoubleKeys()
     });
+
     sql = `SELECT * FROM certificates WHERE  owner='` + user + `' AND name='` + cname + `' ORDER BY id`;
     db.all(sql, [], (err, rows) => {
         if (err) {
@@ -174,7 +175,7 @@ app.post("/certs/delete/", (req, res) => {
     });
 });
 
-
+//opening listening port
 app.listen(5000, () => {
     console.log("server live on port 5000")
 })

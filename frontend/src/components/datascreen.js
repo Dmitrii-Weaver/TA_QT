@@ -1,14 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import "./datascreen.css"
 import { Grid, Typography } from '@mui/material'
 
-
-
-
 const datascreen = (props) => {
-  console.log("props.displayData")
-  console.log(props.displayData)
-
   function render(props) {
     if (typeof (props.displayData) == "string") {
       return (
