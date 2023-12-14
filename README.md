@@ -23,14 +23,14 @@
 - index.js - main file containing the api code, given the size of the assignment splitting it into several files seemed unnecessary
 - test.js - unit tests
 
-/frontend
-/frontend/src
-/frontend/components - components folder, contains parts of the react app that are used in app.js
-/frontend/components/datascreen.js - handles the data output. Received data, errors, success responses.
-/frontend/components/form.js - assembles and sends request with parameters provided by user
+/frontend 
+ - /src
+ - - /components - components folder, contains parts of the react app that are used in app.js
+ - - - /datascreen.js - handles the data output. Received data, errors, success responses.
+ - - - /form.js - assembles and sends request with parameters provided by user
 
-/frontend/index.js - core file, mostly left unchanged from init
-/frontend/app.js - main file, connects the components
+ - - /index.js - core file, mostly left unchanged from init
+ - - /app.js - main file, connects the components
         
 readme.md - a readme file, you read it to get information about the app
 
